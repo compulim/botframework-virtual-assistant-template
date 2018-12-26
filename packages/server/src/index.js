@@ -83,7 +83,7 @@ import serveHandler from 'serve-handler';
     });
   });
 
-  server.listen(port, () => {
+  server.listen(port, '0.0.0.0', () => {
     console.log(`Server is now listening to port ${ port }`);
     console.log(`- Direct Line secret is "${ directLineSecret.substr(0, 3) }...${ directLineSecret.substr(-3) }"`);
     console.log(`- Speech Services key is "${ speechServicesKey.substr(0, 3) }...${ speechServicesKey.substr(-3) }" of "${ speechServicesRegion }"`);
