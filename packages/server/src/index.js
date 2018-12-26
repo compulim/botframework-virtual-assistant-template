@@ -5,6 +5,7 @@ config();
 
 import { createServer } from 'restify';
 import { join } from 'path';
+import { version } from '../package.json';
 import fetch from 'node-fetch';
 import random from 'math-random';
 import serveHandler from 'serve-handler';
@@ -13,11 +14,18 @@ import serveHandler from 'serve-handler';
   const server = createServer();
 
   server.get('/health.txt', (_, res) => {
-    res.send({ now: Date.now() });
+    res.send({
+      now: Date.now(),
+      version
+    });
   });
 
   server.get('/ready.txt', (_, res) => {
-    res.send({ now: Date.now() });
+    // TODO: We should add a more reliable readiness check (for cordon in Kubernetes)
+    res.send({
+      now: Date.now(),
+      version
+    });
   });
 
   server.post('/api/directline/token', async (_, res) => {
