@@ -1,6 +1,7 @@
 {
   "name": "root",
   "private": true,
+  "version": "0.0.1-0",
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --parallel --stream",
