@@ -1,0 +1,21 @@
+sudo: required
+
+language: node_js
+
+node_js:
+- "11"
+
+services:
+- docker
+
+install:
+- docker-compose build
+
+script:
+- echo
+
+deploy:
+- provider: script
+  script: bash scripts/docker_push
+  on:
+    branch: master
