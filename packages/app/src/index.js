@@ -1,22 +1,18 @@
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-import connect from './redux/actions/connect';
+import './index.css';
+import * as serviceWorker from './serviceWorker';
+import App from './App';
+
+import connectUsingTokenServer from './redux/actions/connectUsingTokenServer';
 import createStore from './redux/createStore';
-import disconnect from './redux/actions/disconnect';
 
 const store = createStore();
 
 // TODO: Move it somewhere
-store.dispatch(connect());
-
-setTimeout(() => {
-  store.dispatch(disconnect());
-}, 5000);
+store.dispatch(connectUsingTokenServer());
 
 ReactDOM.render(
   <Provider store={ store }>

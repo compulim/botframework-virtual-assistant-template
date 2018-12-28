@@ -1,7 +1,9 @@
-const CONNECT = 'CONNECT';
+const CONNECT_PENDING = 'CONNECT_PENDING';
+const CONNECT_REJECTED = 'CONNECT_REJECTED';
+const CONNECT_FULFILLED = 'CONNECT_FULFILLED';
 
-export default function () {
-  return { type: CONNECT };
+export {
+  CONNECT_PENDING,
+  CONNECT_REJECTED,
+  CONNECT_FULFILLED
 }
-
-export { CONNECT }
