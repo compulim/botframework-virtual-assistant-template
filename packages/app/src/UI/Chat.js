@@ -1,31 +1,40 @@
 import { connect } from 'react-redux';
 import { css } from 'glamor';
+import classNames from 'classnames';
 import ReactWebChat, { createDirectLine } from 'botframework-webchat';
-import memoize from 'memoize-one';
+import memoizeWithDispose from 'memoize-one-with-dispose';
 import React from 'react';
 
 const ROOT_CSS = css({
-  height: '100%',
-  width: '100%'
 });
 
 class Chat extends React.Component {
   constructor(props) {
     super(props);
 
-    this.memoizedCreateDirectLine = memoize(({
-      domain,
-      token,
-      webSocket
-    }) => createDirectLine({
-      domain,
-      token,
-      webSocket
-    }));
+    this.memoizedCreateDirectLine = memoizeWithDispose(directLineOptions => {
+      if (!directLineOptions) { return; }
+
+      const {
+        domain,
+        token,
+        webSocket
+      } = directLineOptions;
+
+      return createDirectLine({
+        domain,
+        token,
+        webSocket
+      });
+    }, directLine => directLine.end());
+  }
+
+  componentWillUnmount() {
+    this.memoizedCreateDirectLine(null);
   }
 
   render() {
-    const { directLineOptions } = this.props;
+    const { className, directLineOptions } = this.props;
 
     if (!directLineOptions) {
       return false;
@@ -33,7 +42,7 @@ class Chat extends React.Component {
 
     return (
       <ReactWebChat
-        className={ ROOT_CSS }
+        className={ classNames(ROOT_CSS + '', className) }
         directLine={ this.memoizedCreateDirectLine(directLineOptions) }
       />
     );

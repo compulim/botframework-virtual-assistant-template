@@ -6,8 +6,17 @@ import reducer from './reducer';
 export default function () {
   const store = createStore(
     reducer,
-    applyMiddleware(thunk)
+    applyMiddleware(
+      thunk,
+      () => next => action => {
+        console.log(action);
+
+        return next(action);
+      }
+    )
   );
+
+  store.subscribe(() => console.log(store.getState()));
 
   return store;
 }
