@@ -2,31 +2,34 @@ import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
-import RoundButton from './RoundButton';
+import ChromelessButton from './ChromelessButton';
 
 const ROOT_CSS = css({
-  color: 'Red',
+  borderRadius: '50%',
+  fontSize: 16,
+  height: 30,
+  lineHeight: '29px',
+  outline: 0,
+  width: 30,
 
-  '&.va--checked': {
-    color: 'Green'
+  '&:hover': {
+    backgroundColor: 'rgba(128, 128, 128, .1)'
   }
 });
 
 export default ({
-  checked,
   children,
   className,
   disabled,
   onClick
 }) =>
-  <RoundButton
+  <ChromelessButton
     className={ classNames(
       ROOT_CSS + '',
-      { 'va--checked': checked },
       (className || '') + ''
     ) }
     disabled={ disabled }
     onClick={ onClick }
   >
     { children }
-  </RoundButton>
+  </ChromelessButton>

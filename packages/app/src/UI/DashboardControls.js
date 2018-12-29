@@ -6,6 +6,7 @@ import CruiseControlSlider from './CruiseControlSlider';
 import DashboardButtons from './DashboardButtons';
 import PairedPhone from './PairedPhone';
 import DummySlider from './Bare/DummySlider';
+import MediaControl from './Bare/MediaControl';
 
 const ROOT_CSS = css({
   display: 'flex',
@@ -20,6 +21,7 @@ const DashboardControls = () =>
     <CruiseControlSlider />
     <DummySlider />
     <DashboardButtons />
+    <MediaControl />
   </div>
 
 export default connect(

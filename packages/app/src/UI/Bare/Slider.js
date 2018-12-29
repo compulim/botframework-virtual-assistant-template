@@ -2,10 +2,12 @@ import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
+const SLIDER_WIDTH = 10;
+
 const ROOT_CSS = css({
   alignItems: 'center',
   display: 'flex',
-  height: 30,
+  minHeight: 20,
   position: 'relative',
   touchAction: 'none',
   userSelect: 'none',
@@ -15,24 +17,24 @@ const ROOT_CSS = css({
     display: 'flex',
     position: 'absolute',
     height: '100%',
-    width: 'calc(100% - 15px)',
+    width: `calc(100% - ${ SLIDER_WIDTH }px)`,
 
     '& > .va__handler': {
-      backgroundColor: '#EEE',
-      border: 'solid 2px #666',
+      backgroundColor: 'White',
+      border: 'solid 1px #666',
       boxSizing: 'border-box',
       height: '100%',
-      width: 15
+      width: SLIDER_WIDTH
     },
 
     '& > .va__jumper.va__jumper--right': {
       flex: 1,
-      marginRight: -15
+      marginRight: -SLIDER_WIDTH
     }
   },
 
   '& > .va__track': {
-    borderTop : 'solid 2px #999',
+    borderTop : 'solid 1px #CCC',
     width: '100%'
   }
 });
@@ -41,7 +43,7 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
 
-    this.rootRef = React.createRef();
+    this.handlerBoxRef = React.createRef();
 
     this.handleLeftJumperClick = this.handleJumperClick.bind(this, value => value - .1);
     this.handleRightJumperClick = this.handleJumperClick.bind(this, value => value + .1);
@@ -56,7 +58,7 @@ export default class extends React.Component {
 
   getValue(clientX) {
     const { anchorClientX, anchorValue } = this.state;
-    const { current } = this.rootRef;
+    const { current } = this.handlerBoxRef;
     const deltaXFraction = (clientX - anchorClientX) / current.offsetWidth;
 
     return Math.min(1, Math.max(0, anchorValue + deltaXFraction));
@@ -83,12 +85,10 @@ export default class extends React.Component {
   }
 
   handlePointerMove({ clientX, pointerId }) {
-    const { current } = this.rootRef;
-
-    if (current && pointerId === this.state.currentPointerID) {
+    if (pointerId === this.state.currentPointerID) {
       const nextValue = this.getValue(clientX);
 
-      this.props.onChanging && this.props.onChanging(nextValue);
+      !isNaN(nextValue) && this.props.onChanging && this.props.onChanging(nextValue);
     }
   }
 
@@ -123,9 +123,11 @@ export default class extends React.Component {
           ROOT_CSS + '',
           (className || '') + ''
         ) }
-        ref={ this.rootRef }
       >
-        <div className="va__handlerbox">
+        <div
+          className="va__handlerbox"
+          ref={ this.handlerBoxRef }
+        >
           <div
             className="va__jumper"
             onClick={ this.handleLeftJumperClick }
