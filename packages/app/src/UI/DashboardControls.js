@@ -2,6 +2,7 @@ import { css } from 'glamor';
 import { connect } from 'react-redux';
 import React from 'react';
 
+import Clock from './Connected/Clock';
 import Compass from './Connected/Compass';
 import CruiseControlSlider from './CruiseControlSlider';
 import DashboardButtons from './DashboardButtons';
@@ -11,8 +12,8 @@ import Longitude from './Connected/Longitude';
 import MediaControl from './Bare/MediaControl';
 import Meter from './Bare/Meter';
 import PairedPhone from './PairedPhone';
+import Speedometer from './Connected/Speedometer';
 import Temperature from './Bare/Temperature';
-import Clock from './Connected/Clock';
 
 const ROOT_CSS = css({
   display: 'flex',
@@ -25,6 +26,7 @@ const DashboardControls = () =>
   <div className={ ROOT_CSS }>
     <PairedPhone />
     <CruiseControlSlider />
+    <Speedometer />
     <DummySlider />
     <DashboardButtons />
     <Meter />

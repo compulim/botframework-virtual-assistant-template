@@ -4,7 +4,7 @@ import React from 'react';
 
 import UIFabricIcon from './UIFabricIcon';
 
-const SLIDER_SIZE = 20;
+const SLIDER_SIZE = 14;
 
 const ROOT_CSS = css({
   alignItems: 'center',
