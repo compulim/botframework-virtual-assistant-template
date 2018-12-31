@@ -1,6 +1,9 @@
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
+import createClockMiddleware from './middleware/clock';
+import createGeolocationMiddleware from './middleware/geolocation';
+import createHeadingMiddleware from './middleware/heading';
 import reducer from './reducer';
 
 export default function () {
@@ -8,6 +11,9 @@ export default function () {
     reducer,
     applyMiddleware(
       thunk,
+      createClockMiddleware(),
+      createGeolocationMiddleware(),
+      createHeadingMiddleware(),
       () => next => action => {
         console.log(action);
 
