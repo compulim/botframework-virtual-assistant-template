@@ -2,12 +2,14 @@ import { css } from 'glamor';
 import classNames from 'classnames';
 import React from 'react';
 
-const SLIDER_WIDTH = 10;
+import UIFabricIcon from './UIFabricIcon';
+
+const SLIDER_SIZE = 20;
 
 const ROOT_CSS = css({
   alignItems: 'center',
   display: 'flex',
-  minHeight: 20,
+  height: SLIDER_SIZE,
   position: 'relative',
   touchAction: 'none',
   userSelect: 'none',
@@ -17,19 +19,33 @@ const ROOT_CSS = css({
     display: 'flex',
     position: 'absolute',
     height: '100%',
-    width: `calc(100% - ${ SLIDER_WIDTH }px)`,
+    width: `calc(100% - ${ SLIDER_SIZE }px)`,
 
     '& > .va__handler': {
-      backgroundColor: 'White',
-      border: 'solid 1px #666',
-      boxSizing: 'border-box',
-      height: '100%',
-      width: SLIDER_WIDTH
+      alignItems: 'center',
+      display: 'flex',
+      fontSize: SLIDER_SIZE,
+      width: SLIDER_SIZE,
+
+      '& > .va__handlerlayer': {
+        height: SLIDER_SIZE,
+        position: 'relative',
+
+        '& > .ms-Icon': {
+          left: 0,
+          position: 'absolute',
+          top: 0
+        },
+
+        '& > .va__fill': {
+          color: 'White'
+        }
+      }
     },
 
     '& > .va__jumper.va__jumper--right': {
       flex: 1,
-      marginRight: -SLIDER_WIDTH
+      marginRight: -SLIDER_SIZE
     }
   },
 
@@ -138,7 +154,12 @@ export default class extends React.Component {
             onPointerDown={ this.handlePointerDown }
             onPointerMove={ this.handlePointerMove }
             onPointerUp={ this.handlePointerUp }
-          />
+          >
+            <div className="va__handlerlayer">
+              <UIFabricIcon className="va__fill" icon="CircleFill" />
+              <UIFabricIcon icon="CircleRing" />
+            </div>
+          </div>
           <div
             className="va__jumper va__jumper--right"
             onClick={ this.handleRightJumperClick }
