@@ -7,7 +7,9 @@ import Clock from './Connected/Clock';
 import Compass from './Connected/Compass';
 import CruiseControlSlider from './CruiseControlSlider';
 import DashboardButtons from './DashboardButtons';
+import Distance from './Bare/Distance';
 import DummySlider from './Bare/DummySlider';
+import ExteriorTemperature from './Connected/ExteriorTemperature';
 import FanLevel from './Connected/FanLevel';
 import Latitude from './Connected/Latitude';
 import Longitude from './Connected/Longitude';
@@ -16,6 +18,7 @@ import Meter from './Bare/Meter';
 import PairedPhone from './PairedPhone';
 import Speedometer from './Connected/Speedometer';
 import Temperature from './Bare/Temperature';
+import TimezoneName from './Connected/TimezoneName';
 
 const ROOT_CSS = css({
   display: 'flex',
@@ -37,9 +40,16 @@ const DashboardControls = () =>
     <Latitude /> <Longitude />
     <Temperature celsius={ 21.5 } />
     <Temperature celsius={ 21.5 } unit="fahrenheit" />
-    <Clock />
+    <div>
+      <Clock />
+      &nbsp;
+      <TimezoneName />
+    </div>
     <CabinTemperature />
+    <ExteriorTemperature />
     <FanLevel />
+    <Distance kilometer={ 10424 } />
+    <Distance kilometer={ 10424 } unit="mile" />
   </div>
 
 export default connect(

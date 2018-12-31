@@ -16,8 +16,9 @@ export default ({
 }) => {
   const date = new Date(value);
   const hours = date.getHours();
+  const amPmHours = hours % 12;
 
   return (
-    <span>{ hours ? hours : 12 }:{ pad(date.getMinutes()) } { hours < 12 ? 'AM' : 'PM' }</span>
+    <span>{ amPmHours ? amPmHours : 12 }:{ pad(date.getMinutes()) } { hours < 12 ? 'AM' : 'PM' }</span>
   );
 }

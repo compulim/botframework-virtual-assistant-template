@@ -3,11 +3,10 @@ import updateIn from 'simple-update-in';
 import { SET_CLOCK } from '../actions/setClock';
 import { OVERRIDE_CLOCK } from '../actions/overrideClock';
 
-const NOW = Date.now();
 const DEFAULT_STATE = {
-  actualDate: NOW,
+  actualDate: undefined,
   overrideDate: undefined,
-  date: NOW
+  date: undefined
 };
 
 export default function (state = DEFAULT_STATE, { payload, type }) {
