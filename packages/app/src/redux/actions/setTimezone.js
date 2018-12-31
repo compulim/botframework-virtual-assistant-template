@@ -1,9 +1,9 @@
 const SET_TIMEZONE = 'SET_TIMEZONE';
 
-export default function (name) {
+export default function (name, offset) {
   return {
     type: SET_TIMEZONE,
-    payload: { name }
+    payload: { offset, name }
   };
 }
 

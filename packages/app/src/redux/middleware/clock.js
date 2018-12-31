@@ -17,9 +17,10 @@ export default function () {
         lastClock = clock;
       }
 
+      const timezoneOffset = now.getTimezoneOffset();
       let timezoneName;
 
-      switch (now.getTimezoneOffset()) {
+      switch (timezoneOffset) {
         case -480:
           timezoneName = 'CST';
           break;
@@ -30,7 +31,7 @@ export default function () {
       }
 
       if (timezoneName !== lastTimezoneName) {
-        store.dispatch(setTimezone(timezoneName));
+        store.dispatch(setTimezone(timezoneName, timezoneOffset));
         lastTimezoneName = timezoneName;
       }
     };

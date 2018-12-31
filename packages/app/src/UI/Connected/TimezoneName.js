@@ -5,5 +5,7 @@ const TimezoneName = ({ timezoneName }) =>
   !!timezoneName && <span>{ timezoneName }</span>
 
 export default connect(
-  ({ timezone }) => ({ timezoneName: (timezone || {}).name })
+  ({ timezone }) => ({
+    timezoneName: (timezone || {}).name
+  })
 )(TimezoneName)
