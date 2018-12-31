@@ -2,11 +2,13 @@ import { css } from 'glamor';
 import { connect } from 'react-redux';
 import React from 'react';
 
+import CabinTemperature from './Connected/CabinTemperature';
 import Clock from './Connected/Clock';
 import Compass from './Connected/Compass';
 import CruiseControlSlider from './CruiseControlSlider';
 import DashboardButtons from './DashboardButtons';
 import DummySlider from './Bare/DummySlider';
+import FanLevel from './Connected/FanLevel';
 import Latitude from './Connected/Latitude';
 import Longitude from './Connected/Longitude';
 import MediaControl from './Bare/MediaControl';
@@ -34,7 +36,10 @@ const DashboardControls = () =>
     <MediaControl />
     <Latitude /> <Longitude />
     <Temperature celsius={ 21.5 } />
+    <Temperature celsius={ 21.5 } unit="fahrenheit" />
     <Clock />
+    <CabinTemperature />
+    <FanLevel />
   </div>
 
 export default connect(

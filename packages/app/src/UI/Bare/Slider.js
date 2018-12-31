@@ -68,7 +68,8 @@ export default class extends React.Component {
     this.handlePointerUp = this.handlePointerUp.bind(this);
 
     this.state = {
-      currentPointerID: null
+      currentPointerID: null,
+      intermediateValue: null
     };
   }
 
@@ -94,7 +95,8 @@ export default class extends React.Component {
         return {
           anchorClientX: clientX,
           anchorValue: this.props.value,
-          currentPointerID: pointerId
+          currentPointerID: pointerId,
+          intermediateValue: this.props.value
         };
       }
     });
@@ -105,6 +107,10 @@ export default class extends React.Component {
       const nextValue = this.getValue(clientX);
 
       !isNaN(nextValue) && this.props.onChanging && this.props.onChanging(nextValue);
+
+      this.setState(() => ({
+        intermediateValue: nextValue
+      }));
     }
   }
 
@@ -122,7 +128,8 @@ export default class extends React.Component {
         return {
           anchorClientX: null,
           anchorValue: null,
-          currentPointerID: null
+          currentPointerID: null,
+          intermediateValue: null
         };
       }
     });
@@ -130,8 +137,11 @@ export default class extends React.Component {
 
   render() {
     const {
-      props: { className, value },
+      props: { className, value: committedValue },
+      state: { intermediateValue }
     } = this;
+
+    const value = typeof intermediateValue === 'number' ? intermediateValue : committedValue;
 
     return (
       <div
