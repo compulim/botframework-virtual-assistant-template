@@ -37,7 +37,6 @@ const DashboardControls = () =>
     <Speedometer />
     <DummySlider />
     <DashboardButtons />
-    <Meter />
     <Compass />
     <MediaControl />
     <Latitude /> <Longitude />

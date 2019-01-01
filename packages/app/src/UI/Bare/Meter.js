@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import React from 'react';
 
 const ROOT_CSS = css({
-  backgroundColor: 'rgba(255, 0, 0, .1)',
   height: 25,
   position: 'relative',
   width: 50,
