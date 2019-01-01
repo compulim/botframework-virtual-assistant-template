@@ -17,6 +17,9 @@ import MediaControl from './Bare/MediaControl';
 import Meter from './Bare/Meter';
 import PairedPhone from './PairedPhone';
 import Speedometer from './Connected/Speedometer';
+import SoundSource from './Connected/SoundSource';
+import SoundTrackName from './Connected/SoundTrackName';
+import SoundTrackAlbumArt from './Connected/SoundTrackAlbumArt';
 import Temperature from './Bare/Temperature';
 import TimezoneName from './Connected/TimezoneName';
 
@@ -50,6 +53,9 @@ const DashboardControls = () =>
     <FanLevel />
     <Distance kilometer={ 10424 } />
     <Distance kilometer={ 10424 } unit="mile" />
+    <SoundSource />
+    <SoundTrackName />
+    <SoundTrackAlbumArt />
   </div>
 
 export default connect(

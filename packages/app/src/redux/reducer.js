@@ -11,6 +11,8 @@ import geolocation from './reducers/geolocation';
 import heading from './reducers/heading';
 import language from './reducers/language';
 import pairedPhone from './reducers/pairedPhone';
+import soundSource from './reducers/soundSource';
+import soundTrack from './reducers/soundTrack';
 import temperatureUnit from './reducers/temperatureUnit';
 import timezone from './reducers/timezone';
 
@@ -26,6 +28,8 @@ export default combineReducers({
   heading,
   language,
   pairedPhone,
+  soundSource,
+  soundTrack,
   temperatureUnit,
   timezone
 })
