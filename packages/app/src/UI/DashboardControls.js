@@ -1,60 +1,62 @@
 import { css } from 'glamor';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import React from 'react';
 
-import CabinTemperature from './Connected/CabinTemperature';
-import Clock from './Connected/Clock';
-import Compass from './Connected/Compass';
-import CruiseControlSlider from './CruiseControlSlider';
-import DashboardButtons from './DashboardButtons';
-import Distance from './Bare/Distance';
-import DummySlider from './Bare/DummySlider';
-import ExteriorTemperature from './Connected/ExteriorTemperature';
-import FanLevel from './Connected/FanLevel';
-import Latitude from './Connected/Latitude';
-import Longitude from './Connected/Longitude';
-import MediaControl from './Bare/MediaControl';
-import Meter from './Bare/Meter';
-import PairedPhone from './PairedPhone';
-import Speedometer from './Connected/Speedometer';
-import SoundSource from './Connected/SoundSource';
-import SoundTrackName from './Connected/SoundTrackName';
-import SoundTrackAlbumArt from './Connected/SoundTrackAlbumArt';
-import Temperature from './Bare/Temperature';
-import TimezoneName from './Connected/TimezoneName';
+import Home from './Tabs/Home';
+
+import ChromelessButton from './Bare/ChromelessButton';
+import UIFabricIcon from './Bare/UIFabricIcon';
 
 const ROOT_CSS = css({
   display: 'flex',
   flex: 1,
   flexDirection: 'column',
-  padding: 10
+
+  '& > .va__tabbar': {
+    backgroundColor: '#66C',
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: 10
+  }
+});
+
+const TAB_BAR_BUTTON_CSS = css({
+  borderRadius: '20%',
+  color: 'White',
+  fontSize: 20,
+  height: 40,
+  padding: 5,
+  width: 40,
+
+  '&.active': {
+    backgroundColor: 'rgba(255, 255, 255, .3)'
+  }
 });
 
 const DashboardControls = () =>
   <div className={ ROOT_CSS }>
-    <PairedPhone />
-    <CruiseControlSlider />
-    <Speedometer />
-    <DummySlider />
-    <DashboardButtons />
-    <Compass />
-    <MediaControl />
-    <Latitude /> <Longitude />
-    <Temperature celsius={ 21.5 } />
-    <Temperature celsius={ 21.5 } unit="fahrenheit" />
-    <div>
-      <Clock />
-      &nbsp;
-      <TimezoneName />
+    <Home />
+    <div className="va__tabbar">
+      <ChromelessButton className={ TAB_BAR_BUTTON_CSS }>
+        <UIFabricIcon icon="Snowflake" />
+      </ChromelessButton>
+      <ChromelessButton className={ TAB_BAR_BUTTON_CSS }>
+        <UIFabricIcon icon="Car" />
+      </ChromelessButton>
+      <ChromelessButton className={ TAB_BAR_BUTTON_CSS }>
+        <UIFabricIcon icon="MapPin" />
+      </ChromelessButton>
+      <ChromelessButton className={ TAB_BAR_BUTTON_CSS }>
+        <UIFabricIcon icon="MusicInCollection" />
+      </ChromelessButton>
+      <ChromelessButton className={ TAB_BAR_BUTTON_CSS }>
+        <UIFabricIcon icon="CellPhone" />
+      </ChromelessButton>
+      <ChromelessButton className={ classNames(TAB_BAR_BUTTON_CSS + '', 'active') }>
+        <UIFabricIcon icon="Home" />
+      </ChromelessButton>
     </div>
-    <CabinTemperature />
-    <ExteriorTemperature />
-    <FanLevel />
-    <Distance kilometer={ 10424 } />
-    <Distance kilometer={ 10424 } unit="mile" />
-    <SoundSource />
-    <SoundTrackName />
-    <SoundTrackAlbumArt />
   </div>
 
 export default connect(
