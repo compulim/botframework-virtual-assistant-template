@@ -36,7 +36,7 @@ class Chat extends React.Component {
     this.memoizedCreateStore = memoize(() => {
       const store = createStore(
         {},
-        () => next => action => {
+        ({ dispatch }) => next => action => {
           const { payload, type } = action;
 
           if (type === 'DIRECT_LINE/INCOMING_ACTIVITY') {
@@ -78,7 +78,28 @@ class Chat extends React.Component {
               this.props.setSoundSource('Bluetooth');
               this.props.setSoundTrack(activity.value);
             }
+          } else if (type === 'DIRECT_LINE/CONNECTION_STATUS_UPDATE' && payload.connectionStatus === 2) {
+            console.log('dispatch');
+
+            dispatch({
+              type: 'DIRECT_LINE/POST_ACTIVITY',
+              payload: {
+                activity: {
+                  name: 'startConversation',
+                  type: 'event',
+                  local: 'en-US',
+                  value: ''
+                }
+              }
+              // from: { id: userID, name: "User", role: "user"},
+              // name   : 'startConversation',
+              // type   : 'event',
+              // locale : this.props.locale,
+              // value  : ''
+            });
           }
+
+          console.log(action);
 
           return next(action);
         }
