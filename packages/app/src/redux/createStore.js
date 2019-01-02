@@ -14,11 +14,11 @@ export default function () {
       createClockMiddleware(),
       createGeolocationMiddleware(),
       createHeadingMiddleware(),
-      () => next => action => {
-        console.log(action);
+      // () => next => action => {
+      //   console.log(action);
 
-        return next(action);
-      }
+      //   return next(action);
+      // }
     )
   );
 

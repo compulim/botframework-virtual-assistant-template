@@ -5,7 +5,7 @@ const SoundTrack = ({
   albumArt,
   className
 }) =>
-  !!albumArt && <img className={ className } src={ albumArt } />
+  !!albumArt && <img alt="" className={ className } src={ albumArt } />
 
 export default connect(
   ({ soundTrack }) => ({ albumArt: (soundTrack || {}).albumArt })

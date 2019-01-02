@@ -1,9 +1,14 @@
 import { connect } from 'react-redux';
 import { css } from 'glamor';
 import classNames from 'classnames';
-import ReactWebChat, { createDirectLine } from 'botframework-webchat';
+import ReactWebChat, { createDirectLine, createStore } from 'botframework-webchat';
+import memoize from 'memoize-one';
 import memoizeWithDispose from 'memoize-one-with-dispose';
 import React from 'react';
+
+import setCabinTemperature from '../redux/actions/setCabinTemperature';
+import setSoundSource from '../redux/actions/setSoundSource';
+import setSoundTrack from '../redux/actions/setSoundTrack';
 
 const ROOT_CSS = css({
 });
@@ -27,6 +32,60 @@ class Chat extends React.Component {
         webSocket
       });
     }, directLine => directLine.end());
+
+    this.memoizedCreateStore = memoize(() => {
+      const store = createStore(
+        {},
+        () => next => action => {
+          const { payload, type } = action;
+
+          if (type === 'DIRECT_LINE/INCOMING_ACTIVITY') {
+            const { activity } = payload;
+
+            if (
+              activity.type === 'event'
+              && activity.name === 'ActiveRoute.Directions'
+            ) {
+              try {
+                // this.props.setDestination({
+                //   estimatedTimeOfArrival: new Date(Date.now() + 15 * 60000),
+                //   fullAddress: activity.value.Destination.address.formattedAddress
+                // });
+              } catch (err) {
+                console.error(err);
+              }
+            }
+
+            if (
+              activity.type === 'event'
+              && activity.name === 'ChangeTemperature'
+            ) {
+              this.props.setCabinTemperature(activity.value);
+            }
+
+            if (
+              activity.type === 'event'
+              && activity.name === 'TuneRadio'
+            ) {
+              this.props.setSoundSource(activity.value);
+              this.props.setSoundTrack('DAFT PUNK - Robot Rock');
+            }
+
+            if (
+              activity.type === 'event'
+              && activity.name === 'PlayMusic'
+            ) {
+              this.props.setSoundSource('Bluetooth');
+              this.props.setSoundTrack(activity.value);
+            }
+          }
+
+          return next(action);
+        }
+      );
+
+      return store;
+    });
   }
 
   componentWillUnmount() {
@@ -44,6 +103,7 @@ class Chat extends React.Component {
       <ReactWebChat
         className={ classNames(ROOT_CSS + '', className) }
         directLine={ this.memoizedCreateDirectLine(directLineOptions) }
+        store={ this.memoizedCreateStore() }
       />
     );
   }
@@ -54,5 +114,10 @@ export default connect(
     directLineOptions
   }) => ({
     directLineOptions
-  })
+  }),
+  {
+    setCabinTemperature,
+    setSoundSource,
+    setSoundTrack
+  }
 )(Chat)

@@ -1,62 +1,70 @@
 import { css } from 'glamor';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import React from 'react';
 
 import CabinTemperature from '../Connected/CabinTemperature';
-import Clock from '../Connected/Clock';
-import Compass from '../Connected/Compass';
-import CruiseControlSlider from '../CruiseControlSlider';
-import DashboardButtons from '../DashboardButtons';
-import Distance from '../Bare/Distance';
-import DummySlider from '../Bare/DummySlider';
 import ExteriorTemperature from '../Connected/ExteriorTemperature';
 import FanLevel from '../Connected/FanLevel';
-import Latitude from '../Connected/Latitude';
-import Longitude from '../Connected/Longitude';
-import MediaControl from '../Bare/MediaControl';
-import Meter from '../Bare/Meter';
 import PairedPhone from '../PairedPhone';
-import Speedometer from '../Connected/Speedometer';
-import SoundSource from '../Connected/SoundSource';
-import SoundTrackName from '../Connected/SoundTrackName';
-import SoundTrackAlbumArt from '../Connected/SoundTrackAlbumArt';
-import Temperature from '../Bare/Temperature';
-import TimezoneName from '../Connected/TimezoneName';
+import UIFabricIcon from '../Bare/UIFabricIcon';
 
 const ROOT_CSS = css({
   display: 'flex',
   flex: 1,
   flexDirection: 'column',
-  padding: 10
+
+  '& > .va__row': {
+    alignItems: 'center',
+    display: 'flex',
+    minHeight: 20,
+    padding: 10
+  },
+
+  '& > .va__profilerow': {
+    backgroundColor: 'Black',
+    color: 'White'
+  },
+
+  '& > .va__temperaturerow': {
+    backgroundColor: '#666',
+    color: 'White',
+    justifyContent: 'space-around',
+
+    '& > .va__temperaturecolumn': {
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+
+      '& > .va__temperature': {
+        fontSize: 30
+      }
+    }
+  },
+
+  '& > .va__fanrow': {
+    backgroundColor: '#669',
+    color: 'White'
+  }
 });
 
-const DashboardControls = () =>
+export default () =>
   <div className={ ROOT_CSS }>
-    <PairedPhone />
-    <CruiseControlSlider />
-    <Speedometer />
-    <DummySlider />
-    <DashboardButtons />
-    <Compass />
-    <MediaControl />
-    <Latitude /> <Longitude />
-    <Temperature celsius={ 21.5 } />
-    <Temperature celsius={ 21.5 } unit="fahrenheit" />
-    <div>
-      <Clock />
+    <div className="va__row va__profilerow">
+      <UIFabricIcon icon="Contact" />
       &nbsp;
-      <TimezoneName />
+      <PairedPhone />
     </div>
-    <CabinTemperature />
-    <ExteriorTemperature />
-    <FanLevel />
-    <Distance kilometer={ 10424 } />
-    <Distance kilometer={ 10424 } unit="mile" />
-    <SoundSource />
-    <SoundTrackName />
-    <SoundTrackAlbumArt />
+    <div className="va__row va__temperaturerow">
+      <div className="va__temperaturecolumn">
+        <CabinTemperature className="va__temperature" />
+        <div>Cabin Temp</div>
+      </div>
+      <div className="va__temperaturecolumn">
+        <ExteriorTemperature className="va__temperature" />
+        <div>Exterior Temp</div>
+      </div>
+    </div>
+    <div className="va__row va__fanrow">
+      <FanLevel />
+    </div>
   </div>
-
-export default connect(
-  () => ({})
-)(DashboardControls)
