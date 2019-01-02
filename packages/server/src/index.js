@@ -1,7 +1,8 @@
 import '@babel/polyfill';
-import { config } from 'dotenv';
+import 'dotenv/config';
+import envJSON from '../env.json';
 
-config();
+process.env = { ...process.env, ...envJSON };
 
 import { createServer } from 'restify';
 import { join } from 'path';

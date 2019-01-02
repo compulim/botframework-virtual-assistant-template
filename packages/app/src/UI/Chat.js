@@ -91,15 +91,8 @@ class Chat extends React.Component {
                   value: ''
                 }
               }
-              // from: { id: userID, name: "User", role: "user"},
-              // name   : 'startConversation',
-              // type   : 'event',
-              // locale : this.props.locale,
-              // value  : ''
             });
           }
-
-          console.log(action);
 
           return next(action);
         }
