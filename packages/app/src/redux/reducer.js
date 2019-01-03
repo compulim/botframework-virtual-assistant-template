@@ -5,18 +5,22 @@ import clock from './reducers/clock';
 import cruiseControlSpeed from './reducers/cruiseControlSpeed';
 import directLineOptions from './reducers/directLineOptions';
 import distanceUnit from './reducers/distanceUnit';
+import engineOilWarning from './reducers/engineOilWarning';
 import exteriorTemperature from './reducers/exteriorTemperature';
 import fanLevel from './reducers/fanLevel';
 import geolocation from './reducers/geolocation';
 import heading from './reducers/heading';
 import language from './reducers/language';
 import navigationDestination from './reducers/navigationDestination';
+import outlookConnected from './reducers/outlookConnected';
 import pairedPhone from './reducers/pairedPhone';
 import soundSource from './reducers/soundSource';
 import soundTrack from './reducers/soundTrack';
 import tab from './reducers/tab';
 import temperatureUnit from './reducers/temperatureUnit';
 import timezone from './reducers/timezone';
+import tirePressureWarning from './reducers/tirePressureWarning';
+import tractionControl from './reducers/tractionControl';
 
 export default combineReducers({
   cabinTemperature,
@@ -24,16 +28,20 @@ export default combineReducers({
   cruiseControlSpeed,
   directLineOptions,
   distanceUnit,
+  engineOilWarning,
   exteriorTemperature,
   fanLevel,
   geolocation,
   heading,
   language,
   navigationDestination,
+  outlookConnected,
   pairedPhone,
   soundSource,
   soundTrack,
   tab,
   temperatureUnit,
-  timezone
+  timezone,
+  tirePressureWarning,
+  tractionControl
 })
