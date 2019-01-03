@@ -10,9 +10,13 @@ import ExteriorTemperature from '../Connected/ExteriorTemperature';
 import FanLevel from '../Connected/FanLevel';
 import Latitude from '../Connected/Latitude';
 import Longitude from '../Connected/Longitude';
+import MediaControl from '../Bare/MediaControl';
 import NavigationDestinationAddress from '../Connected/NavigationDestinationAddress';
 import NavigationDestinationName from '../Connected/NavigationDestinationName';
 import PairedPhone from '../PairedPhone';
+import SoundSource from '../Connected/SoundSource';
+import SoundTrackAlbumArt from '../Connected/SoundTrackAlbumArt';
+import SoundTrackName from '../Connected/SoundTrackName';
 import Speed from '../Connected/Speed';
 import Speedometer from '../Connected/Speedometer';
 import TimezoneName from '../Connected/TimezoneName';
@@ -138,6 +142,41 @@ const ROOT_CSS = css({
         width: 64
       }
     }
+  },
+
+  '& > .va__radiorow': {
+    alignItems: 'stretch',
+    backgroundColor: 'Black',
+    color: 'White',
+    display: 'flex',
+    flexDirection: 'column',
+
+    '& > .va__soundinfo': {
+      display: 'grid',
+      gridTemplateColumns: '1fr 3fr',
+
+      '& > .va__soundtrackalbumart': {
+        gridColumn: 1,
+        gridRow: '1 / 2'
+      },
+
+      '& > .va__soundtrackname': {
+        gridColumn: 2,
+        gridRow: 1
+      },
+
+      '& > .va__soundsource': {
+        color: '#99C',
+        gridColumn: 2,
+        gridRow: 2
+      }
+    },
+
+    '& > .va__mediacontrol': {
+      '& button': {
+        color: 'White'
+      }
+    }
   }
 });
 
@@ -185,5 +224,13 @@ export default () =>
         <Compass className="va__compass" />
         <span className="va__longitude">LONG <Longitude /></span>
       </div>
+    </div>
+    <div className="va__row va__radiorow">
+      <div className="va__soundinfo">
+        <SoundTrackAlbumArt className="va__soundtrackalbumart" />
+        <SoundTrackName className="va__soundtrackname" />
+        <SoundSource className="va__soundsource" />
+      </div>
+      <MediaControl className="va__mediacontrol" />
     </div>
   </div>
