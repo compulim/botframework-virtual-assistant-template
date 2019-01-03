@@ -110,9 +110,14 @@ const ROOT_CSS = css({
     backgroundColor: '#666',
     color: 'White',
     display: 'flex',
+    flex: 1,
     flexDirection: 'column',
     padding: '10px 0',
-    textAlign: 'center',
+
+    '& > .va__navigationdestination': {
+      flex: 1,
+      textAlign: 'center'
+    },
 
     '& > .va__latlong': {
       alignItems: 'center',
@@ -170,9 +175,11 @@ export default () =>
       <TimezoneName className="va__timezonename" />
     </div>
     <div className="va__row va__navigationrow">
-      <div>Destination:</div>
-      <NavigationDestinationName className="va__navigationdestinationname" />
-      <NavigationDestinationAddress />
+      <div className="va__navigationdestination">
+        <div>Destination:</div>
+        <NavigationDestinationName className="va__navigationdestinationname" />
+        <NavigationDestinationAddress />
+      </div>
       <div className="va__latlong">
         <span className="va__latitude">LAT <Latitude /></span>
         <Compass className="va__compass" />
