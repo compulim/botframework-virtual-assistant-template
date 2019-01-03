@@ -12,6 +12,7 @@ function pad(value, count = 2, padding = '0') {
 }
 
 export default ({
+  className,
   value
 }) => {
   const date = new Date(value);
@@ -19,6 +20,6 @@ export default ({
   const amPmHours = hours % 12;
 
   return (
-    <span>{ amPmHours ? amPmHours : 12 }:{ pad(date.getMinutes()) } { hours < 12 ? 'AM' : 'PM' }</span>
+    <span className={ className }>{ amPmHours ? amPmHours : 12 }:{ pad(date.getMinutes()) } { hours < 12 ? 'AM' : 'PM' }</span>
   );
 }

@@ -10,6 +10,7 @@ import fanLevel from './reducers/fanLevel';
 import geolocation from './reducers/geolocation';
 import heading from './reducers/heading';
 import language from './reducers/language';
+import navigationDestination from './reducers/navigationDestination';
 import pairedPhone from './reducers/pairedPhone';
 import soundSource from './reducers/soundSource';
 import soundTrack from './reducers/soundTrack';
@@ -28,6 +29,7 @@ export default combineReducers({
   geolocation,
   heading,
   language,
+  navigationDestination,
   pairedPhone,
   soundSource,
   soundTrack,

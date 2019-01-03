@@ -7,6 +7,6 @@ export default ({
   unitText
 }) =>
   unit === 'mile' ?
-    <span className={ className }>{ Math.round(kilometer * 0.62137119) } { unitText || 'Miles' }</span>
+    <span className={ className }>{ Math.round(kilometer * 0.62137119) } { typeof unitText === 'string' ? unitText : 'Miles' }</span>
   :
-    <span className={ className }>{ Math.round(kilometer) } { unitText || 'KM' }</span>
+    <span className={ className }>{ Math.round(kilometer) } { typeof unitText === 'string' ? unitText : 'KM' }</span>

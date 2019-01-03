@@ -14,6 +14,8 @@ import FanLevel from '../Connected/FanLevel';
 import Latitude from '../Connected/Latitude';
 import Longitude from '../Connected/Longitude';
 import MediaControl from '../Bare/MediaControl';
+import NavigationDestinationAddress from '../Connected/NavigationDestinationAddress';
+import NavigationDestinationName from '../Connected/NavigationDestinationName';
 import PairedPhone from '../PairedPhone';
 import Speedometer from '../Connected/Speedometer';
 import SoundSource from '../Connected/SoundSource';
@@ -54,6 +56,11 @@ const DashboardControls = () =>
     <SoundSource />
     <SoundTrackName />
     <SoundTrackAlbumArt />
+    <div>
+      <NavigationDestinationName />
+      <br />
+      <NavigationDestinationAddress />
+    </div>
   </div>
 
 export default connect(

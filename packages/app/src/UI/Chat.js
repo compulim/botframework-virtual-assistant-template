@@ -79,8 +79,6 @@ class Chat extends React.Component {
               this.props.setSoundTrack(activity.value);
             }
           } else if (type === 'DIRECT_LINE/CONNECTION_STATUS_UPDATE' && payload.connectionStatus === 2) {
-            console.log('dispatch');
-
             dispatch({
               type: 'DIRECT_LINE/POST_ACTIVITY',
               payload: {
