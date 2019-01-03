@@ -5,6 +5,7 @@ import ReactWebChat, { createDirectLine, createStore } from 'botframework-webcha
 import memoize from 'memoize-one';
 import memoizeWithDispose from 'memoize-one-with-dispose';
 import React from 'react';
+import updateIn from 'simple-update-in';
 
 import setCabinTemperature from '../redux/actions/setCabinTemperature';
 import setSoundSource from '../redux/actions/setSoundSource';
@@ -90,6 +91,16 @@ class Chat extends React.Component {
                 }
               }
             });
+          } else if (type === 'DIRECT_LINE/POST_ACTIVITY') {
+            const { heading, geolocation: { latitude, longitude } } = this.props;
+
+            if (typeof heading === 'number') {
+              action = updateIn(action, ['channelData', 'heading'], () => heading);
+            }
+
+            if (!isNaN(latitude) && !isNaN(longitude)) {
+              action = updateIn(action, ['channelData', 'latLong'], () => ({ latitude, longitude }));
+            }
           }
 
           return next(action);
@@ -123,9 +134,11 @@ class Chat extends React.Component {
 
 export default connect(
   ({
-    directLineOptions
+    directLineOptions,
+    geolocation
   }) => ({
-    directLineOptions
+    directLineOptions,
+    geolocation
   }),
   {
     setCabinTemperature,

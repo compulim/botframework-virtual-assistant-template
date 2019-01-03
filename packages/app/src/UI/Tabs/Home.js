@@ -67,13 +67,13 @@ const ROOT_CSS = css({
 
     '& > .va__speed': {
       flex: 1,
-      fontSize: 80,
+      fontSize: 60,
       textAlign: 'center'
     },
 
     '& > .va__speedometer': {
-      height: 100,
-      width: 200
+      height: 75,
+      width: 150
     }
   },
 
