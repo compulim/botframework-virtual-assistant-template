@@ -119,7 +119,10 @@ const ROOT_CSS = css({
     padding: '10px 0',
 
     '& > .va__navigationdestination': {
+      display: 'flex',
       flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
       textAlign: 'center'
     },
 
