@@ -7,6 +7,8 @@ import overrideLanguageCode from '../../redux/actions/overrideLanguageCode';
 import overrideLatLong from '../../redux/actions/overrideLatLong';
 import overrideTimezone from '../../redux/actions/overrideTimezone';
 
+const PREVENT_DEFAULT_FN = event => event.preventDefault();
+
 const ROOT_CSS = css({
   padding: 10
 });
@@ -42,11 +44,14 @@ const Settings = ({
       </small>
     </div>
     <div>
-      <input
-        onChange={ overrideDirectLineSecret }
-        type="password"
-        value={ directLineSecret || '' }
-      />
+      <form onSubmit={ PREVENT_DEFAULT_FN }>
+        <input
+          autoComplete="off"
+          onChange={ overrideDirectLineSecret }
+          type="password"
+          value={ directLineSecret || '' }
+        />
+      </form>
     </div>
     <h2>Geolocation</h2>
     <div>
