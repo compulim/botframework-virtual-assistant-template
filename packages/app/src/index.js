@@ -10,6 +10,7 @@ import App from './App';
 import connectUsingSecret from './redux/actions/connectUsingSecret';
 import connectUsingTokenServer from './redux/actions/connectUsingTokenServer';
 import createStore from './redux/createStore';
+import enableSpeech from './redux/actions/enableSpeech';
 
 const store = createStore();
 
@@ -21,6 +22,8 @@ if (directLineSecret) {
 } else {
   store.dispatch(connectUsingTokenServer());
 }
+
+store.dispatch(enableSpeech());
 
 ReactDOM.render(
   <Provider store={ store }>

@@ -1,7 +1,15 @@
 import { connect } from 'react-redux';
 import { css } from 'glamor';
 import classNames from 'classnames';
-import ReactWebChat, { createDirectLine, createStore } from 'botframework-webchat';
+
+import
+  ReactWebChat,
+  {
+    createCognitiveServicesSpeechServicesPonyfillFactory,
+    createDirectLine,
+    createStore
+  } from 'botframework-webchat';
+
 import memoize from 'memoize-one';
 import memoizeWithDispose from 'memoize-one-with-dispose';
 import React from 'react';
@@ -114,8 +122,20 @@ class Chat extends React.Component {
         }
       );
 
+      // this.memoizedCreateSpeechServicesPonyfill = memoize((authorizationToken, region) => createCognitiveServicesSpeechServicesPonyfillFactory({ authorizationToken, region }));
+
       return store;
     });
+
+    this.state = { speechServicesPonyfill: null };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.speechServicesOptions !== this.props.speechServicesOptions) {
+      createCognitiveServicesSpeechServicesPonyfillFactory(nextProps.speechServicesOptions).then(speechServicesPonyfill => {
+        this.setState(() => ({ speechServicesPonyfill }));
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -123,7 +143,12 @@ class Chat extends React.Component {
   }
 
   render() {
-    const { className, directLineOptions, languageCode } = this.props;
+    const
+      {
+        props: { className, directLineOptions, languageCode },
+        state: { speechServicesPonyfill }
+      }
+    = this;
 
     if (!directLineOptions) {
       return false;
@@ -134,6 +159,7 @@ class Chat extends React.Component {
         className={ classNames(ROOT_CSS + '', className) }
         directLine={ this.memoizedCreateDirectLine(directLineOptions) }
         locale={ languageCode }
+        webSpeechPonyfillFactory={ speechServicesPonyfill }
         store={ this.memoizedCreateStore() }
       />
     );
@@ -144,11 +170,13 @@ export default connect(
   ({
     directLineOptions,
     geolocation,
-    language: { languageCode }
+    language: { languageCode },
+    speechServicesOptions
   }) => ({
     directLineOptions,
     geolocation,
-    languageCode
+    languageCode,
+    speechServicesOptions
   }),
   {
     setCabinTemperature,
