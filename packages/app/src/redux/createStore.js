@@ -32,13 +32,15 @@ export default function () {
     const {
       directLineSecret,
       geolocation,
-      language
+      language,
+      speechServicesSubscriptionKey
     } = store.getState();
 
     const persistedState = {
       directLineSecret,
       geolocation,
-      language
+      language,
+      speechServicesSubscriptionKey
     };
 
     window.sessionStorage.setItem(PERSISTED_STATE_KEY, JSON.stringify(persistedState));

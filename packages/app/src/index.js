@@ -9,13 +9,14 @@ import App from './App';
 
 import connectUsingSecret from './redux/actions/connectUsingSecret';
 import connectUsingTokenServer from './redux/actions/connectUsingTokenServer';
+import enableSpeechUsingSecret from './redux/actions/enableSpeechUsingSecret';
+import enableSpeechUsingTokenServer from './redux/actions/enableSpeechUsingTokenServer';
 import createStore from './redux/createStore';
-import enableSpeech from './redux/actions/enableSpeech';
 
 const store = createStore();
 
 // TODO: Move it somewhere
-const { directLineSecret } = store.getState();
+const { directLineSecret, speechServicesSubscriptionKey } = store.getState();
 
 if (directLineSecret) {
   store.dispatch(connectUsingSecret(directLineSecret, random().toString(36).substr(2, 10)));
@@ -23,7 +24,11 @@ if (directLineSecret) {
   store.dispatch(connectUsingTokenServer());
 }
 
-store.dispatch(enableSpeech());
+if (speechServicesSubscriptionKey) {
+  store.dispatch(enableSpeechUsingSecret(speechServicesSubscriptionKey));
+} else {
+  store.dispatch(enableSpeechUsingTokenServer());
+}
 
 ReactDOM.render(
   <Provider store={ store }>

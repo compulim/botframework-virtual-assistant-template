@@ -5,6 +5,7 @@ import React from 'react';
 import overrideDirectLineSecret from '../../redux/actions/overrideDirectLineSecret';
 import overrideLanguageCode from '../../redux/actions/overrideLanguageCode';
 import overrideLatLong from '../../redux/actions/overrideLatLong';
+import overrideSpeechServicesSubscriptionKey from '../../redux/actions/overrideSpeechServicesSubscriptionKey';
 import overrideTimezone from '../../redux/actions/overrideTimezone';
 
 const PREVENT_DEFAULT_FN = event => event.preventDefault();
@@ -16,6 +17,9 @@ const ROOT_CSS = css({
 const Settings = ({
   directLineSecret,
   overrideDirectLineSecret,
+
+  speechServicesSubscriptionKey,
+  overrideSpeechServicesSubscriptionKey,
 
   overrideLatitude,
   overrideLatLongToMSRAsia,
@@ -37,22 +41,36 @@ const Settings = ({
 }) =>
   <div className={ ROOT_CSS }>
     <h1>Overrides</h1>
-    <h2>Direct Line secret</h2>
+    <h2>Secrets</h2>
     <div>
       <small>
         This settings requires refresh.
       </small>
     </div>
-    <div>
-      <form onSubmit={ PREVENT_DEFAULT_FN }>
-        <input
-          autoComplete="off"
-          onChange={ overrideDirectLineSecret }
-          type="password"
-          value={ directLineSecret || '' }
-        />
-      </form>
-    </div>
+    <form onSubmit={ PREVENT_DEFAULT_FN }>
+      <p>
+        <label>
+          Direct Line secret<br />
+          <input
+            autoComplete="off"
+            onChange={ overrideDirectLineSecret }
+            type="password"
+            value={ directLineSecret || '' }
+          />
+        </label>
+      </p>
+      <p>
+        <label>
+          Speech Services subscription key<br />
+          <input
+            autoComplete="off"
+            onChange={ overrideSpeechServicesSubscriptionKey }
+            type="password"
+            value={ speechServicesSubscriptionKey || '' }
+          />
+        </label>
+      </p>
+    </form>
     <h2>Geolocation</h2>
     <div>
       <label>
@@ -158,6 +176,7 @@ const Settings = ({
 export default connect(
   ({
     directLineSecret,
+    speechServicesSubscriptionKey,
     geolocation: {
       overrodeLatitude,
       overrodeLongitude
@@ -170,6 +189,7 @@ export default connect(
     }
   }) => ({
     directLineSecret,
+    speechServicesSubscriptionKey,
     overrodeLanguageCode,
     overrodeLatitude,
     overrodeLongitude,
@@ -179,6 +199,7 @@ export default connect(
     overrideDirectLineSecret,
     overrideLanguageCode,
     overrideLatLong,
+    overrideSpeechServicesSubscriptionKey,
     overrideTimezone
   },
   (
@@ -187,6 +208,7 @@ export default connect(
       overrideDirectLineSecret,
       overrideLanguageCode,
       overrideLatLong,
+      overrideSpeechServicesSubscriptionKey,
       overrideTimezone
     },
     ownProps
@@ -194,8 +216,9 @@ export default connect(
     ...ownProps,
     ...stateProps,
 
-    // Direct Line secret
+    // Direct Line and Speech Services secret
     overrideDirectLineSecret: ({ target: { value: nextDirectLineSecret } }) => overrideDirectLineSecret(nextDirectLineSecret),
+    overrideSpeechServicesSubscriptionKey: ({ target: { value: nextSpeechServicesSubscriptionKey } }) => overrideSpeechServicesSubscriptionKey(nextSpeechServicesSubscriptionKey),
 
     // Geolocation
     overrideLatitude: ({ target: { value: nextLatitude } }) => overrideLatLong(+nextLatitude, stateProps.overrodeLongitude),

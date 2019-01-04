@@ -26,6 +26,8 @@ class Chat extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log(`<Chat> created`);
+
     this.memoizedCreateDirectLine = memoizeWithDispose(directLineOptions => {
       if (!directLineOptions) { return; }
 
