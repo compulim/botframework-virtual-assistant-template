@@ -61,7 +61,7 @@ class Chat extends React.Component {
               activity.type === 'event'
               && activity.name === 'ChangeTemperature'
             ) {
-              this.props.setCabinTemperature(activity.value);
+              this.props.setCabinTemperature(+activity.value);
             }
 
             if (

@@ -7,7 +7,9 @@ const DEFAULT_STATE = {
 
 export default function (state = DEFAULT_STATE, { payload, type }) {
   if (type === SET_SOUND_TRACK) {
-    state = payload.track;
+    const { albumArt, name } = payload;
+
+    state = { albumArt, name };
   }
 
   return state;
