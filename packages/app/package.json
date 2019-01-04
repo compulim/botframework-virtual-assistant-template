@@ -20,6 +20,7 @@
     "math-random": "^1.0.1",
     "memoize-one": "^5.0.0",
     "memoize-one-with-dispose": "^1.0.0",
+    "on-error-resume-next": "^1.1.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",

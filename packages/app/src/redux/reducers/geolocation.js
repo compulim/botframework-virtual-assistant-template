@@ -28,13 +28,13 @@ export default function (state = DEFAULT_STATE, { payload, type }) {
   state = updateIn(
     state,
     ['latitude'],
-    () => typeof state.overrodeLatitude === 'number' ? state.overrodeLatitude : state.actualLatitude
+    () => (typeof state.overrodeLatitude === 'number' && !isNaN(state.overrodeLatitude)) ? state.overrodeLatitude : state.actualLatitude
   );
 
   state = updateIn(
     state,
     ['longitude'],
-    () => typeof state.overrodeLongitude === 'number' ? state.overrodeLongitude : state.actualLongitude
+    () => (typeof state.overrodeLongitude === 'number' && !isNaN(state.overrodeLatitude)) ? state.overrodeLongitude : state.actualLongitude
   );
 
   return state;

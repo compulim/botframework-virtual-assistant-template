@@ -32,78 +32,85 @@ class Chat extends React.Component {
         token,
         webSocket
       });
-    }, directLine => directLine.end());
+    }, () => {
+      // TODO: We should stop DirectLineJS to prevent resources leak
+    });
 
     this.memoizedCreateStore = memoize(() => {
       const store = createStore(
         {},
         ({ dispatch }) => next => action => {
-          const { payload, type } = action;
+          try {
+            const { payload, type } = action;
 
-          if (type === 'DIRECT_LINE/INCOMING_ACTIVITY') {
-            const { activity } = payload;
+            if (type === 'DIRECT_LINE/INCOMING_ACTIVITY') {
+              const { activity } = payload;
 
-            if (
-              activity.type === 'event'
-              && activity.name === 'ActiveRoute.Directions'
-            ) {
-              try {
-                // this.props.setDestination({
-                //   estimatedTimeOfArrival: new Date(Date.now() + 15 * 60000),
-                //   fullAddress: activity.value.Destination.address.formattedAddress
-                // });
-              } catch (err) {
-                console.error(err);
-              }
-            }
-
-            if (
-              activity.type === 'event'
-              && activity.name === 'ChangeTemperature'
-            ) {
-              this.props.setCabinTemperature(+activity.value);
-            }
-
-            if (
-              activity.type === 'event'
-              && activity.name === 'TuneRadio'
-            ) {
-              this.props.setSoundSource(activity.value);
-              this.props.setSoundTrack('DAFT PUNK - Robot Rock');
-            }
-
-            if (
-              activity.type === 'event'
-              && activity.name === 'PlayMusic'
-            ) {
-              this.props.setSoundSource('Bluetooth');
-              this.props.setSoundTrack(activity.value);
-            }
-          } else if (type === 'DIRECT_LINE/CONNECTION_STATUS_UPDATE' && payload.connectionStatus === 2) {
-            dispatch({
-              type: 'DIRECT_LINE/POST_ACTIVITY',
-              payload: {
-                activity: {
-                  name: 'startConversation',
-                  type: 'event',
-                  local: 'en-US',
-                  value: ''
+              if (
+                activity.type === 'event'
+                && activity.name === 'ActiveRoute.Directions'
+              ) {
+                try {
+                  // this.props.setDestination({
+                  //   estimatedTimeOfArrival: new Date(Date.now() + 15 * 60000),
+                  //   fullAddress: activity.value.Destination.address.formattedAddress
+                  // });
+                } catch (err) {
+                  console.error(err);
                 }
               }
-            });
-          } else if (type === 'DIRECT_LINE/POST_ACTIVITY') {
-            const { heading, geolocation: { latitude, longitude } } = this.props;
 
-            if (typeof heading === 'number') {
-              action = updateIn(action, ['channelData', 'heading'], () => heading);
+              if (
+                activity.type === 'event'
+                && activity.name === 'ChangeTemperature'
+              ) {
+                this.props.setCabinTemperature(+activity.value);
+              }
+
+              if (
+                activity.type === 'event'
+                && activity.name === 'TuneRadio'
+              ) {
+                this.props.setSoundSource(activity.value);
+                this.props.setSoundTrack('DAFT PUNK - Robot Rock');
+              }
+
+              if (
+                activity.type === 'event'
+                && activity.name === 'PlayMusic'
+              ) {
+                this.props.setSoundSource('Bluetooth');
+                this.props.setSoundTrack(activity.value);
+              }
+            } else if (type === 'DIRECT_LINE/CONNECTION_STATUS_UPDATE' && payload.connectionStatus === 2) {
+              dispatch({
+                type: 'DIRECT_LINE/POST_ACTIVITY',
+                payload: {
+                  activity: {
+                    name: 'startConversation',
+                    type: 'event',
+                    value: ''
+                  }
+                }
+              });
+            } else if (type === 'DIRECT_LINE/POST_ACTIVITY') {
+              const { heading, geolocation: { latitude, longitude } } = this.props;
+
+              if (typeof heading === 'number' && !isNaN(heading)) {
+                action = updateIn(action, ['channelData', 'heading'], () => heading);
+              }
+
+              if (!isNaN(latitude) && !isNaN(longitude)) {
+                action = updateIn(action, ['channelData', 'latLong'], () => ({ latitude, longitude }));
+              }
             }
 
-            if (!isNaN(latitude) && !isNaN(longitude)) {
-              action = updateIn(action, ['channelData', 'latLong'], () => ({ latitude, longitude }));
-            }
+            return next(action);
+          } catch (err) {
+            console.error(err);
+
+            throw err;
           }
-
-          return next(action);
         }
       );
 
@@ -116,7 +123,7 @@ class Chat extends React.Component {
   }
 
   render() {
-    const { className, directLineOptions } = this.props;
+    const { className, directLineOptions, languageCode } = this.props;
 
     if (!directLineOptions) {
       return false;
@@ -126,6 +133,7 @@ class Chat extends React.Component {
       <ReactWebChat
         className={ classNames(ROOT_CSS + '', className) }
         directLine={ this.memoizedCreateDirectLine(directLineOptions) }
+        locale={ languageCode }
         store={ this.memoizedCreateStore() }
       />
     );
@@ -135,10 +143,12 @@ class Chat extends React.Component {
 export default connect(
   ({
     directLineOptions,
-    geolocation
+    geolocation,
+    language: { languageCode }
   }) => ({
     directLineOptions,
-    geolocation
+    geolocation,
+    languageCode
   }),
   {
     setCabinTemperature,

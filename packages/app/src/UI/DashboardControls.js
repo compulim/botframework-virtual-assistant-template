@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import Home from './Tabs/Home';
+import Settings from './Tabs/Settings';
 import Test from './Tabs/Test';
 
 import setTab from '../redux/actions/setTab';
@@ -23,7 +24,7 @@ const ICONS = [
   'MapPin',
   'MusicInCollection',
   'CellPhone',
-  'TestBeaker',
+  'Settings',
   'Home'
 ];
 
@@ -37,6 +38,7 @@ const DashboardControls = ({
     (className || '') + ''
   ) }>
     { tab === 'Home' && <Home /> }
+    { tab === 'Settings' && <Settings /> }
     { tab === 'TestBeaker' && <Test /> }
     <TabBar
       icons={ ICONS }

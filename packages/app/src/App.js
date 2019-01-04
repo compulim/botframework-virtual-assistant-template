@@ -8,7 +8,7 @@ const ROOT_CSS = css({
   backgroundColor: '#EEE',
   display: 'grid',
   gridGap: 10,
-  gridTemplateColumns: 'auto minmax(200px, 25%)',
+  gridTemplateColumns: 'auto minmax(320px, 25%)',
   height: 'calc(100% - 20px)',
   padding: 10,
   width: 'calc(100% - 20px)',

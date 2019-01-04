@@ -8,14 +8,14 @@ const DEFAULT_STATE = {
   actualOffset: undefined,
   name: undefined,
   offset: undefined,
-  overrideName: undefined,
-  overrideOffset: undefined
+  overrodeName: undefined,
+  overrodeOffset: undefined
 };
 
 export default function (state = DEFAULT_STATE, { payload, type }) {
   if (type === OVERRIDE_TIMEZONE) {
-    state = updateIn(state, ['overrideName'], () => payload.name);
-    state = updateIn(state, ['overrideOffset'], () => payload.offset);
+    state = updateIn(state, ['overrodeName'], () => payload.name);
+    state = updateIn(state, ['overrodeOffset'], () => payload.offset);
   } else if (type === SET_TIMEZONE) {
     state = updateIn(state, ['actualName'], () => payload.name);
     state = updateIn(state, ['actualOffset'], () => payload.offset);
@@ -24,13 +24,13 @@ export default function (state = DEFAULT_STATE, { payload, type }) {
   state = updateIn(
     state,
     ['name'],
-    () => state.overrideName || state.actualName
+    () => state.overrodeName || state.actualName
   );
 
   state = updateIn(
     state,
     ['offset'],
-    () => typeof state.overrideOffset === 'number' ? state.overrideOffset : state.actualOffset
+    () => typeof state.overrodeOffset === 'number' ? state.overrodeOffset : state.actualOffset
   );
 
   return state;

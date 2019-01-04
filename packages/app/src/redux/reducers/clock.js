@@ -19,7 +19,7 @@ export default function (state = DEFAULT_STATE, { payload, type }) {
   state = updateIn(
     state,
     ['date'],
-    () => typeof state.overrideDate === 'number' ? state.overrideDate : state.actualDate
+    () => (typeof state.overrideDate === 'number' && !isNaN(state.overrideDate)) ? state.overrideDate : state.actualDate
   );
 
   return state;
