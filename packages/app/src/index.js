@@ -1,4 +1,5 @@
 import { Provider } from 'react-redux';
+import random from 'math-random';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -6,13 +7,20 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 
+import connectUsingSecret from './redux/actions/connectUsingSecret';
 import connectUsingTokenServer from './redux/actions/connectUsingTokenServer';
 import createStore from './redux/createStore';
 
 const store = createStore();
 
 // TODO: Move it somewhere
-store.dispatch(connectUsingTokenServer());
+const { directLineSecret } = store.getState();
+
+if (directLineSecret) {
+  store.dispatch(connectUsingSecret(directLineSecret, random().toString(36).substr(2, 10)));
+} else {
+  store.dispatch(connectUsingTokenServer());
+}
 
 ReactDOM.render(
   <Provider store={ store }>

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { css } from 'glamor';
 import React from 'react';
 
+import overrideDirectLineSecret from '../../redux/actions/overrideDirectLineSecret';
 import overrideLanguageCode from '../../redux/actions/overrideLanguageCode';
 import overrideLatLong from '../../redux/actions/overrideLatLong';
 import overrideTimezone from '../../redux/actions/overrideTimezone';
@@ -11,6 +12,9 @@ const ROOT_CSS = css({
 });
 
 const Settings = ({
+  directLineSecret,
+  overrideDirectLineSecret,
+
   overrideLatitude,
   overrideLatLongToMSRAsia,
   overrideLatLongToRedmond,
@@ -31,6 +35,19 @@ const Settings = ({
 }) =>
   <div className={ ROOT_CSS }>
     <h1>Overrides</h1>
+    <h2>Direct Line secret</h2>
+    <div>
+      <small>
+        This settings requires refresh.
+      </small>
+    </div>
+    <div>
+      <input
+        onChange={ overrideDirectLineSecret }
+        type="password"
+        value={ directLineSecret || '' }
+      />
+    </div>
     <h2>Geolocation</h2>
     <div>
       <label>
@@ -135,6 +152,7 @@ const Settings = ({
 
 export default connect(
   ({
+    directLineSecret,
     geolocation: {
       overrodeLatitude,
       overrodeLongitude
@@ -146,12 +164,14 @@ export default connect(
       overrodeOffset: overrodeTimezoneOffset
     }
   }) => ({
+    directLineSecret,
     overrodeLanguageCode,
     overrodeLatitude,
     overrodeLongitude,
     overrodeTimezoneOffset
   }),
   {
+    overrideDirectLineSecret,
     overrideLanguageCode,
     overrideLatLong,
     overrideTimezone
@@ -159,6 +179,7 @@ export default connect(
   (
     stateProps,
     {
+      overrideDirectLineSecret,
       overrideLanguageCode,
       overrideLatLong,
       overrideTimezone
@@ -167,6 +188,9 @@ export default connect(
   ) => ({
     ...ownProps,
     ...stateProps,
+
+    // Direct Line secret
+    overrideDirectLineSecret: ({ target: { value: nextDirectLineSecret } }) => overrideDirectLineSecret(nextDirectLineSecret),
 
     // Geolocation
     overrideLatitude: ({ target: { value: nextLatitude } }) => overrideLatLong(+nextLatitude, stateProps.overrodeLongitude),

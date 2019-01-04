@@ -30,11 +30,13 @@ export default function () {
   store.subscribe(() => console.log(store.getState()));
   store.subscribe(() => {
     const {
+      directLineSecret,
       geolocation,
       language
     } = store.getState();
 
     const persistedState = {
+      directLineSecret,
       geolocation,
       language
     };

@@ -4,6 +4,7 @@ import cabinTemperature from './reducers/cabinTemperature';
 import clock from './reducers/clock';
 import cruiseControlSpeed from './reducers/cruiseControlSpeed';
 import directLineOptions from './reducers/directLineOptions';
+import directLineSecret from './reducers/directLineSecret';
 import distanceUnit from './reducers/distanceUnit';
 import engineOilWarning from './reducers/engineOilWarning';
 import exteriorTemperature from './reducers/exteriorTemperature';
@@ -27,6 +28,7 @@ export default combineReducers({
   clock,
   cruiseControlSpeed,
   directLineOptions,
+  directLineSecret,
   distanceUnit,
   engineOilWarning,
   exteriorTemperature,

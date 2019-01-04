@@ -26,7 +26,7 @@ export default function (secret, userID = `dl_${ random().toString(36).substr(2,
         throw new Error(`failed to exchange Direct Line secret, server returned ${ tokenRes.status }`);
       }
 
-      const { token } = JSON.parse(await res.text());
+      const { token } = JSON.parse(await tokenRes.text());
 
       dispatch({ type: CONNECT_FULFILLED, payload: { token } });
     } catch (err) {
