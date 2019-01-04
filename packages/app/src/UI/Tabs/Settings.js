@@ -51,7 +51,7 @@ const Settings = ({
     <h2>Geolocation</h2>
     <div>
       <label>
-        Latitude
+        Latitude&nbsp;
         <input
           onChange={ overrideLatitude }
           type="text"
@@ -61,7 +61,7 @@ const Settings = ({
     </div>
     <div>
       <label>
-        Longitude
+        Longitude&nbsp;
         <input
           onChange={ overrideLongitude }
           type="text"
