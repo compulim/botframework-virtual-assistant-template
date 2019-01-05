@@ -1,5 +1,11 @@
+import { connect } from 'react-redux';
 import { css } from 'glamor';
-import React, { Component } from 'react';
+import React from 'react';
+import updateIn from 'simple-update-in';
+
+import { createStore } from 'botframework-webchat';
+
+import WebChatStoreContext from './WebChatStoreContext';
 
 import Chat from './UI/Chat';
 import DashboardControls from './UI/DashboardControls';
@@ -27,17 +33,116 @@ const ROOT_CSS = css({
   }
 });
 
-class App extends Component {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      webChatStore: createStore(
+        {},
+        ({ dispatch }) => next => action => {
+          // console.log(action);
+
+          try {
+            const { payload, type } = action;
+
+            if (type === 'DIRECT_LINE/INCOMING_ACTIVITY') {
+              const { activity } = payload;
+
+              if (
+                activity.type === 'event'
+                && activity.name === 'ActiveRoute.Directions'
+              ) {
+                try {
+                  // this.props.setDestination({
+                  //   estimatedTimeOfArrival: new Date(Date.now() + 15 * 60000),
+                  //   fullAddress: activity.value.Destination.address.formattedAddress
+                  // });
+                } catch (err) {
+                  console.error(err);
+                }
+              }
+
+              if (
+                activity.type === 'event'
+                && activity.name === 'ChangeTemperature'
+              ) {
+                this.props.setCabinTemperature(+activity.value);
+              }
+
+              if (
+                activity.type === 'event'
+                && activity.name === 'TuneRadio'
+              ) {
+                this.props.setSoundSource(activity.value);
+                this.props.setSoundTrack('DAFT PUNK - Robot Rock');
+              }
+
+              if (
+                activity.type === 'event'
+                && activity.name === 'PlayMusic'
+              ) {
+                this.props.setSoundSource('Bluetooth');
+                this.props.setSoundTrack(activity.value);
+              }
+            } else if (type === 'DIRECT_LINE/CONNECTION_STATUS_UPDATE' && payload.connectionStatus === 2) {
+              dispatch({
+                type: 'DIRECT_LINE/POST_ACTIVITY',
+                payload: {
+                  activity: {
+                    name: 'startConversation',
+                    type: 'event',
+                    value: ''
+                  }
+                }
+              });
+            } else if (type === 'DIRECT_LINE/POST_ACTIVITY') {
+              const { heading, geolocation: { latitude, longitude } } = this.props;
+
+              if (typeof heading === 'number' && !isNaN(heading)) {
+                action = updateIn(action, ['channelData', 'heading'], () => heading);
+              }
+
+              if (!isNaN(latitude) && !isNaN(longitude)) {
+                action = updateIn(action, ['channelData', 'latLong'], () => ({ latitude, longitude }));
+              }
+            }
+
+            return next(action);
+          } catch (err) {
+            console.error(err);
+
+            throw err;
+          }
+        }
+      )
+    };
+  }
+
   render() {
+    const { webChatStore } = this.state;
+
     return (
-      <div className={ ROOT_CSS }>
-        <Chat className="va__chat" />
-        <div className="va__controls">
-          <DashboardControls />
+      <WebChatStoreContext.Provider value={ webChatStore }>
+        <div className={ ROOT_CSS }>
+          <Chat className="va__chat" />
+          <div className="va__controls">
+            <DashboardControls />
+          </div>
         </div>
-      </div>
+      </WebChatStoreContext.Provider>
     );
   }
 }
 
-export default App;
+export default connect(
+  ({
+    directLineOptions,
+    geolocation,
+    heading
+  }) => ({
+    directLineOptions,
+    geolocation,
+    heading
+  })
+)(App)

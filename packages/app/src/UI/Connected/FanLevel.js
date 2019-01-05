@@ -6,6 +6,8 @@ import React from 'react';
 import setFanLevel from '../../redux/actions/setFanLevel';
 import Slider from '../Bare/Slider';
 
+import WebChatStoreContext from '../../WebChatStoreContext';
+
 const ROOT_CSS = css({
   alignItems: 'center',
   display: 'flex',
@@ -34,7 +36,31 @@ const FanLevel = ({
     <span>{ fanLevel }</span>
   </div>
 
-export default connect(
+const ConnectedFanLevel = connect(
   ({ fanLevel }) => ({ fanLevel }),
-  { setFanLevel: value => setFanLevel(value * 4 + 1) }
+  (dispatch, { webChatStore }) => ({
+    setFanLevel: value => {
+      const fanLevel = value * 4 + 1;
+
+      dispatch(setFanLevel(fanLevel));
+
+      webChatStore.dispatch({
+        type: 'DIRECT_LINE/POST_ACTIVITY',
+        payload: {
+          activity: {
+            name: 'ChangeFanLevel',
+            type: 'event',
+            value: fanLevel
+          }
+        }
+      });
+    }
+  })
 )(FanLevel)
+
+export default (...props) =>
+  <WebChatStoreContext.Consumer>
+    { webChatStore =>
+      <ConnectedFanLevel { ...props } webChatStore={ webChatStore } />
+    }
+  </WebChatStoreContext.Consumer>

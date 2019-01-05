@@ -19,14 +19,14 @@ import setCabinTemperature from '../redux/actions/setCabinTemperature';
 import setSoundSource from '../redux/actions/setSoundSource';
 import setSoundTrack from '../redux/actions/setSoundTrack';
 
+import WebChatStoreContext from '../WebChatStoreContext';
+
 const ROOT_CSS = css({
 });
 
 class Chat extends React.Component {
   constructor(props) {
     super(props);
-
-    console.log(`<Chat> created`);
 
     this.memoizedCreateDirectLine = memoizeWithDispose(directLineOptions => {
       if (!directLineOptions) { return; }
@@ -157,13 +157,17 @@ class Chat extends React.Component {
     }
 
     return (
-      <ReactWebChat
-        className={ classNames(ROOT_CSS + '', className) }
-        directLine={ this.memoizedCreateDirectLine(directLineOptions) }
-        locale={ languageCode }
-        webSpeechPonyfillFactory={ speechServicesPonyfill }
-        store={ this.memoizedCreateStore() }
-      />
+      <WebChatStoreContext.Consumer>
+        { store =>
+          <ReactWebChat
+            className={ classNames(ROOT_CSS + '', className) }
+            directLine={ this.memoizedCreateDirectLine(directLineOptions) }
+            locale={ languageCode }
+            webSpeechPonyfillFactory={ speechServicesPonyfill }
+            store={ store }
+          />
+        }
+      </WebChatStoreContext.Consumer>
     );
   }
 }
