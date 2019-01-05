@@ -40,7 +40,7 @@ const ConnectedFanLevel = connect(
   ({ fanLevel }) => ({ fanLevel }),
   (dispatch, { webChatStore }) => ({
     setFanLevel: value => {
-      const fanLevel = value * 4 + 1;
+      const fanLevel = Math.round(value * 4 + 1);
 
       dispatch(setFanLevel(fanLevel));
 
