@@ -24,6 +24,7 @@ import TimezoneName from '../Connected/TimezoneName';
 import UIFabricIcon from '../Bare/UIFabricIcon';
 
 const ROOT_CSS = css({
+  background: '#3D4449',
   display: 'flex',
   flex: 1,
   flexDirection: 'column',
@@ -42,7 +43,6 @@ const ROOT_CSS = css({
   },
 
   '& > .va__temperaturerow': {
-    backgroundColor: '#666',
     color: 'White',
     justifyContent: 'space-around',
 
@@ -58,18 +58,19 @@ const ROOT_CSS = css({
   },
 
   '& > .va__fanrow': {
-    backgroundColor: '#669',
+    backgroundColor: '#2C5472',
     color: 'White'
   },
 
   '& > .va__speedrow': {
-    backgroundColor: '#CCC',
+    backgroundColor: 'rgba(255, 255, 255, .5)',
     fontWeight: 200,
     justifyContent: 'stretch',
 
     '& > .va__speed': {
+      color: '#132331',
       flex: 1,
-      fontSize: 60,
+      fontSize: 72,
       textAlign: 'center'
     },
 
@@ -81,7 +82,7 @@ const ROOT_CSS = css({
 
   '& > .va__cruisecontrolrow': {
     alignItems: 'center',
-    backgroundColor: '#999',
+    backgroundColor: '#525B5F',
     color: 'White',
 
     '& > *:not(:last-child)': {
@@ -95,7 +96,7 @@ const ROOT_CSS = css({
 
   '& > .va__clockrow': {
     alignItems: 'flex-end',
-    backgroundColor: '#999',
+    backgroundColor: '#525B5F',
     color: 'White',
     justifyContent: 'center',
 
@@ -107,13 +108,12 @@ const ROOT_CSS = css({
     },
 
     '& > .va__timezonename': {
-      color: '#00c'
+      color: 'rgb(0, 174, 239)'
     }
   },
 
   '& > .va__navigationrow': {
     alignItems: 'center',
-    backgroundColor: '#666',
     color: 'White',
     display: 'flex',
     flex: 1,
@@ -158,14 +158,16 @@ const ROOT_CSS = css({
 
   '& > .va__radiorow': {
     alignItems: 'stretch',
-    backgroundColor: 'Black',
     color: 'White',
     display: 'flex',
     flexDirection: 'column',
+    padding: 0,
 
     '& > .va__soundinfo': {
+      backgroundColor: 'Black',
       display: 'grid',
       gridTemplateColumns: '1fr 3fr',
+      padding: 10,
 
       '& > .va__soundtrackalbumart': {
         gridColumn: 1,
@@ -185,6 +187,9 @@ const ROOT_CSS = css({
     },
 
     '& > .va__mediacontrol': {
+      backgroundColor: 'rgba(0, 0, 0, .6)',
+      padding: '0 10px',
+
       '& button': {
         color: 'White'
       }

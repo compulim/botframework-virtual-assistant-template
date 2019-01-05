@@ -8,7 +8,7 @@ const ROOT_CSS = css({
   width: 50,
 
   '& > .va__hand': {
-    borderTop: 'solid 1px Black',
+    borderTop: 'solid 2px rgb(0, 174, 239)',
     bottom: 0,
     boxSizing: 'border-box',
     left: '50%',
