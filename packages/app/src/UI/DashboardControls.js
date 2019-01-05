@@ -15,7 +15,21 @@ const ROOT_CSS = css({
   display: 'flex',
   flex: 1,
   flexDirection: 'column',
-  justifyContent: 'flex-end'
+  justifyContent: 'flex-end',
+
+  '& > .va__content': {
+    flexGrow: 10000
+  },
+
+  '& > .va__filler': {
+    flex: 1,
+    flexGrow: 1,
+    flexShrink: 10000
+  },
+
+  '& > .va__tabbar': {
+    flexShrink: 0
+  }
 });
 
 const ICONS = [
@@ -37,10 +51,12 @@ const DashboardControls = ({
     ROOT_CSS + '',
     (className || '') + ''
   ) }>
-    { tab === 'Home' && <Home /> }
-    { tab === 'Settings' && <Settings /> }
-    { tab === 'TestBeaker' && <Test /> }
+    { tab === 'Home' && <Home className="va__content" /> }
+    { tab === 'Settings' && <Settings className="va__content" /> }
+    { tab === 'TestBeaker' && <Test className="va__content" /> }
+    <div className="va__filler" />
     <TabBar
+      className="va__tabbar"
       icons={ ICONS }
       onClick={ setTab }
       value={ tab }

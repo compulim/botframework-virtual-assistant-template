@@ -22,7 +22,8 @@ const ROOT_CSS = css({
   '& > .va__controls': {
     backgroundColor: 'White',
     display: 'flex',
-    gridColumn: 2
+    gridColumn: 2,
+    overflow: 'hidden'
   }
 });
 

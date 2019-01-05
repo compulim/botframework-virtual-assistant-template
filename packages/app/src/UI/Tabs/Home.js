@@ -1,5 +1,6 @@
 import { css } from 'glamor';
 // import { connect } from 'react-redux';
+import classNames from 'classnames';
 import React from 'react';
 
 import CabinTemperature from '../Connected/CabinTemperature';
@@ -183,8 +184,11 @@ const ROOT_CSS = css({
   }
 });
 
-export default () =>
-  <div className={ ROOT_CSS }>
+export default ({ className }) =>
+  <div className={ classNames(
+    ROOT_CSS + '',
+    (className || '') + ''
+  ) }>
     <div className="va__row va__profilerow">
       <UIFabricIcon icon="Contact" />
       &nbsp;

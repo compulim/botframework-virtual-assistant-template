@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { css } from 'glamor';
+import classNames from 'classnames';
 import React from 'react';
 
 import overrideDirectLineSecret from '../../redux/actions/overrideDirectLineSecret';
@@ -11,10 +12,24 @@ import overrideTimezone from '../../redux/actions/overrideTimezone';
 const PREVENT_DEFAULT_FN = event => event.preventDefault();
 
 const ROOT_CSS = css({
-  padding: 10
+  overflowY: 'auto',
+  padding: 10,
+
+  '& h1, & h2, & h3, & h4, & h5, & h6': {
+    fontFamily: [
+      'Calibri Light',
+      'Helvetica Neue',
+      'Arial',
+      'sans-serif'
+    ].map(font => `'${ font }'`).join(', ')
+  },
 });
 
 const Settings = ({
+  className,
+
+  restartConversation,
+
   directLineSecret,
   overrideDirectLineSecret,
 
@@ -39,8 +54,14 @@ const Settings = ({
   overrodeTimezoneOffset,
   unoverrideTimezone
 }) =>
-  <div className={ ROOT_CSS }>
-    <h1>Overrides</h1>
+  <div className={ classNames(
+    ROOT_CSS + '',
+    (className || '') + ''
+  ) }>
+    <h1>Settings</h1>
+    <div>
+      <button onClick={ restartConversation }>Restart conversation</button>
+    </div>
     <h2>Secrets</h2>
     <div>
       <small>
@@ -215,6 +236,10 @@ export default connect(
   ) => ({
     ...ownProps,
     ...stateProps,
+
+    // Refresh conversation
+    // TODO: Since DirectLineJS does not support end() right now, we need to refresh the page to restart the conversation
+    restartConversation: () => window.location.reload(),
 
     // Direct Line and Speech Services secret
     overrideDirectLineSecret: ({ target: { value: nextDirectLineSecret } }) => overrideDirectLineSecret(nextDirectLineSecret),
