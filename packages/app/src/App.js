@@ -7,6 +7,10 @@ import { createStore } from 'botframework-webchat';
 
 import WebChatStoreContext from './WebChatStoreContext';
 
+import setCabinTemperature from './redux/actions/setCabinTemperature';
+import setSoundSource from './redux/actions/setSoundSource';
+import setSoundTrack from './redux/actions/setSoundTrack';
+
 import Chat from './UI/Chat';
 import DashboardControls from './UI/DashboardControls';
 
@@ -144,5 +148,10 @@ export default connect(
     directLineOptions,
     geolocation,
     heading
-  })
+  }),
+  {
+    setCabinTemperature,
+    setSoundSource,
+    setSoundTrack
+  }
 )(App)
