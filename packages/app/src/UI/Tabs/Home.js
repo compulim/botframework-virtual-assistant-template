@@ -27,6 +27,7 @@ const ROOT_CSS = css({
   display: 'flex',
   flex: 1,
   flexDirection: 'column',
+  userSelect: 'none',
 
   '& > .va__row': {
     alignItems: 'center',
@@ -128,7 +129,7 @@ const ROOT_CSS = css({
     },
 
     '& > .va__latlong': {
-      alignItems: 'center',
+      alignItems: 'stretch',
       alignSelf: 'stretch',
       display: 'flex',
       height: 40,
@@ -138,12 +139,19 @@ const ROOT_CSS = css({
       '& > .va__latitude, & > .va__longitude': {
         backgroundColor: 'Black',
         flex: 1,
+        fontSize: 12,
         padding: 10
       },
 
+      '& > .va__longitude': {
+        textAlign: 'right'
+      },
+
       '& > .va__compass': {
-        fontSize: 32,
-        width: 64
+        fontSize: 24,
+        marginTop: 10,
+        textAlign: 'center',
+        width: 50
       }
     }
   },
@@ -227,9 +235,9 @@ export default ({ className }) =>
         <NavigationDestinationAddress />
       </div>
       <div className="va__latlong">
-        <span className="va__latitude">LAT <Latitude /></span>
+        <span className="va__latitude">LAT <nobr><Latitude /></nobr></span>
         <Compass className="va__compass" />
-        <span className="va__longitude">LONG <Longitude /></span>
+        <span className="va__longitude">LONG <nobr><Longitude /></nobr></span>
       </div>
     </div>
     <div className="va__row va__radiorow">
