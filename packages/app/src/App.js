@@ -8,6 +8,7 @@ import { createStore } from 'botframework-webchat';
 import WebChatStoreContext from './WebChatStoreContext';
 
 import setCabinTemperature from './redux/actions/setCabinTemperature';
+import setNavigationDestination from './redux/actions/setNavigationDestination';
 import setSoundSource from './redux/actions/setSoundSource';
 import setSoundTrack from './redux/actions/setSoundTrack';
 
@@ -57,11 +58,14 @@ class App extends React.Component {
                 activity.type === 'event'
                 && activity.name === 'ActiveRoute.Directions'
               ) {
+                console.log(activity);
+
                 try {
-                  // this.props.setDestination({
-                  //   estimatedTimeOfArrival: new Date(Date.now() + 15 * 60000),
-                  //   fullAddress: activity.value.Destination.address.formattedAddress
-                  // });
+                  this.props.setNavigationDestination(
+                    activity.value.Destination.name,
+                    activity.value.Destination.address.formattedAddress
+                    // estimatedTimeOfArrival: new Date(Date.now() + 15 * 60000),
+                  );
                 } catch (err) {
                   console.error(err);
                 }
@@ -151,6 +155,7 @@ export default connect(
   }),
   {
     setCabinTemperature,
+    setNavigationDestination,
     setSoundSource,
     setSoundTrack
   }
