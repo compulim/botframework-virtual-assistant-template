@@ -35,7 +35,9 @@ class Chat extends React.Component {
         token,
         webSocket
       });
-    }, () => {
+    },
+    (x, y) => JSON.stringify(x) === JSON.stringify(y),
+    () => {
       // TODO: We should stop DirectLineJS to prevent resources leak
     });
 
