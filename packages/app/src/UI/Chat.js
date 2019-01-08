@@ -17,6 +17,10 @@ import WebChatStoreContext from '../WebChatStoreContext';
 const ROOT_CSS = css({
 });
 
+const WEB_CHAT_STYLE_OPTIONS = {
+  backgroundColor: 'rgba(255, 255, 255, .7)'
+};
+
 class Chat extends React.Component {
   constructor(props) {
     super(props);
@@ -77,6 +81,7 @@ class Chat extends React.Component {
             locale={ languageCode }
             webSpeechPonyfillFactory={ speechServicesPonyfill }
             store={ store }
+            styleOptions={ WEB_CHAT_STYLE_OPTIONS }
           />
         }
       </WebChatStoreContext.Consumer>

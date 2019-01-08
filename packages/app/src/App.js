@@ -16,7 +16,6 @@ import Chat from './UI/Chat';
 import DashboardControls from './UI/DashboardControls';
 
 const ROOT_CSS = css({
-  backgroundColor: '#EEE',
   display: 'grid',
   gridGap: 10,
   gridTemplateColumns: 'auto minmax(320px, 25%)',
@@ -31,7 +30,6 @@ const ROOT_CSS = css({
   },
 
   '& > .va__controls': {
-    backgroundColor: 'White',
     display: 'flex',
     gridColumn: 2,
     overflow: 'hidden'
