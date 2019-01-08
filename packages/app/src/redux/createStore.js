@@ -14,6 +14,7 @@ export default function () {
   const searchParams = new URLSearchParams(window.location.search);
   let initialState = onErrorResumeNext(() => JSON.parse(window.sessionStorage.getItem(PERSISTED_STATE_KEY)), {});
 
+  initialState = updateIn(initialState, ['language', 'actualLanguageCode'], () => window.navigator.language || 'en-US');
   initialState = updateIn(initialState, ['language', 'languageCodeFromURL'], () => searchParams.get('locale'));
   initialState = updateIn(initialState, ['directLineSecret'], () => searchParams.get('s'));
   initialState = updateIn(initialState, ['geolocation', 'overrodeLatitude'], () => +searchParams.get('lat'));
