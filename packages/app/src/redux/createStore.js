@@ -17,8 +17,8 @@ export default function () {
   initialState = updateIn(initialState, ['language', 'actualLanguageCode'], () => window.navigator.language || 'en-US');
   initialState = updateIn(initialState, ['language', 'languageCodeFromURL'], () => searchParams.get('locale'));
   initialState = updateIn(initialState, ['directLineSecret'], () => searchParams.get('s'));
-  initialState = updateIn(initialState, ['geolocation', 'overrodeLatitude'], () => +searchParams.get('lat'));
-  initialState = updateIn(initialState, ['geolocation', 'overrodeLongitude'], () => +searchParams.get('long'));
+  initialState = updateIn(initialState, ['geolocation', 'overrodeLatitude'], () => +(searchParams.get('lat') || NaN));
+  initialState = updateIn(initialState, ['geolocation', 'overrodeLongitude'], () => +(searchParams.get('long') || NaN));
 
   const store = createStore(
     reducer,

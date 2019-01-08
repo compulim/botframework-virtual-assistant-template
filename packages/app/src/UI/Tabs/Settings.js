@@ -290,8 +290,8 @@ export default connect(
     overrideSpeechServicesSubscriptionKey: ({ target: { value: nextSpeechServicesSubscriptionKey } }) => overrideSpeechServicesSubscriptionKey(nextSpeechServicesSubscriptionKey),
 
     // Geolocation
-    overrideLatitude: ({ target: { value: nextLatitude } }) => overrideLatLong(+nextLatitude, stateProps.overrodeLongitude),
-    overrideLongitude: ({ target: { value: nextLongitude } }) => overrideLatLong(stateProps.overrodeLatitude, +nextLongitude),
+    overrideLatitude: ({ target: { value: nextLatitude } }) => overrideLatLong(+(nextLatitude || NaN), stateProps.overrodeLongitude),
+    overrideLongitude: ({ target: { value: nextLongitude } }) => overrideLatLong(stateProps.overrodeLatitude, +(nextLongitude || NaN)),
     overrideLatLongToMSRAsia: () => overrideLatLong(39.9796301, 116.3074183),
     overrideLatLongToRedmond: () => overrideLatLong(47.6423354, -122.1391189),
 
