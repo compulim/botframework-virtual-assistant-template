@@ -14,7 +14,7 @@ export default function () {
   const initialState = onErrorResumeNext(() => JSON.parse(window.sessionStorage.getItem(PERSISTED_STATE_KEY)), {});
   const store = createStore(
     reducer,
-    updateIn(initialState, ['language', 'languageCodeFromURL'], () => new URLSearchParams(window.location.search).get('l')),
+    updateIn(initialState, ['language', 'languageCodeFromURL'], () => new URLSearchParams(window.location.search).get('locale')),
     applyMiddleware(
       thunk,
       createClockMiddleware(),

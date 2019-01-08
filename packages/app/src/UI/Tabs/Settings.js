@@ -152,6 +152,8 @@ const Settings = ({
     <div>
       <small>
         This settings requires refresh.
+        <br />
+        You can also specify thru URL, for example, <code>?locale=zh-HK</code>.
       </small>
     </div>
     {
@@ -163,7 +165,7 @@ const Settings = ({
               onChange={ unoverrideLanguageCode }
               type="radio"
             />
-            Supplied from URL ({ languageCodeFromURL })
+            Specified from URL ({ languageCodeFromURL })
           </label>
         </div>
       :
