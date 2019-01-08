@@ -28,6 +28,7 @@ const ROOT_CSS = css({
 const Settings = ({
   className,
 
+  clearSettings,
   restartConversation,
 
   directLineSecret,
@@ -63,6 +64,8 @@ const Settings = ({
     <h1>Settings</h1>
     <div>
       <button onClick={ restartConversation }>Restart conversation</button>
+      <br />
+      <button onClick={ clearSettings }>Clear all settings</button>
     </div>
     <h2>Secrets</h2>
     <div>
@@ -276,6 +279,10 @@ export default connect(
 
     // Refresh conversation
     // TODO: Since DirectLineJS does not support end() right now, we need to refresh the page to restart the conversation
+    clearSettings: () => {
+      window.sessionStorage.clear();
+      window.location.reload();
+    },
     restartConversation: () => window.location.reload(),
 
     // Direct Line and Speech Services secret
