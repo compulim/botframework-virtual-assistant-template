@@ -48,5 +48,16 @@ export default function () {
     window.sessionStorage.setItem(PERSISTED_STATE_KEY, JSON.stringify(persistedState));
   });
 
+  window.addEventListener('keydown', event => {
+    const { ctrlKey, keyCode } = event;
+
+    // CTRL-S
+    if (ctrlKey && keyCode === 83) {
+      event.preventDefault();
+
+      console.log(store.getState());
+    }
+  });
+
   return store;
 }
