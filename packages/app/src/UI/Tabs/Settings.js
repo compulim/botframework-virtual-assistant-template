@@ -43,6 +43,8 @@ const Settings = ({
   overrodeLatitude,
   overrodeLongitude,
 
+  actualLanguageCode,
+  languageCodeFromURL,
   overrideLanguageCodeToEnglishUK,
   overrideLanguageCodeToEnglishUS,
   overrideLanguageCodeToSimplifiedChinese,
@@ -152,16 +154,30 @@ const Settings = ({
         This settings requires refresh.
       </small>
     </div>
-    <div>
-      <label>
-        <input
-          checked={ !overrodeLanguageCode }
-          onChange={ unoverrideLanguageCode }
-          type="radio"
-        />
-        Do not override language code
-      </label>
-    </div>
+    {
+      languageCodeFromURL ?
+        <div>
+          <label>
+            <input
+              checked={ !overrodeLanguageCode }
+              onChange={ unoverrideLanguageCode }
+              type="radio"
+            />
+            Supplied from URL ({ languageCodeFromURL })
+          </label>
+        </div>
+      :
+        <div>
+          <label>
+            <input
+              checked={ !overrodeLanguageCode }
+              onChange={ unoverrideLanguageCode }
+              type="radio"
+            />
+            Use browser default ({ actualLanguageCode })
+          </label>
+        </div>
+    }
     <div>
       <label>
         <input
@@ -203,18 +219,22 @@ export default connect(
       overrodeLongitude
     },
     language: {
+      actualLanguageCode,
+      languageCodeFromURL,
       overrodeLanguageCode
     },
     timezone: {
       overrodeOffset: overrodeTimezoneOffset
     }
   }) => ({
+    actualLanguageCode,
     directLineSecret,
-    speechServicesSubscriptionKey,
+    languageCodeFromURL,
     overrodeLanguageCode,
     overrodeLatitude,
     overrodeLongitude,
-    overrodeTimezoneOffset
+    overrodeTimezoneOffset,
+    speechServicesSubscriptionKey
   }),
   {
     overrideDirectLineSecret,

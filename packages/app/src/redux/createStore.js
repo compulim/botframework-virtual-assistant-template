@@ -1,6 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 import onErrorResumeNext from 'on-error-resume-next';
 import thunk from 'redux-thunk';
+import updateIn from 'simple-update-in';
 
 import createClockMiddleware from './middleware/clock';
 import createGeolocationMiddleware from './middleware/geolocation';
@@ -13,7 +14,7 @@ export default function () {
   const initialState = onErrorResumeNext(() => JSON.parse(window.sessionStorage.getItem(PERSISTED_STATE_KEY)), {});
   const store = createStore(
     reducer,
-    initialState,
+    updateIn(initialState, ['language', 'languageCodeFromURL'], () => new URLSearchParams(window.location.search).get('l')),
     applyMiddleware(
       thunk,
       createClockMiddleware(),

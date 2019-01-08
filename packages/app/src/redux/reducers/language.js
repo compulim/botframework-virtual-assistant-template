@@ -6,7 +6,8 @@ import { SET_LANGUAGE_CODE } from '../actions/setLanguageCode';
 const DEFAULT_STATE = {
   actualLanguageCode: 'en-US',
   languageCode: 'en-US',
-  overrodeLanguageCode: null
+  languageCodeFromURL: null,
+  overrodeLanguageCode: null,
 };
 
 export default function (state = DEFAULT_STATE, { payload, type }) {
@@ -16,7 +17,7 @@ export default function (state = DEFAULT_STATE, { payload, type }) {
     state = updateIn(state, ['actualLanguageCode'], () => payload.languageCode);
   }
 
-  state = updateIn(state, ['languageCode'], () => state.overrodeLanguageCode || state.actualLanguageCode || 'en-US');
+  state = updateIn(state, ['languageCode'], () => state.overrodeLanguageCode || state.languageCodeFromURL || state.actualLanguageCode || 'en-US');
 
   return state;
 }
