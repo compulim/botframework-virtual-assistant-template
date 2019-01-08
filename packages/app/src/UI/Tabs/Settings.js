@@ -68,6 +68,10 @@ const Settings = ({
     <div>
       <small>
         This settings requires refresh.
+        <br />
+        You can also specify Direct Line secret thru URL.
+        <br />
+        For example, <a href="?s="><code>?s=A1B2C3D</code></a>.
       </small>
     </div>
     <form onSubmit={ PREVENT_DEFAULT_FN }>
@@ -96,6 +100,13 @@ const Settings = ({
     </form>
     <h2>Geolocation</h2>
     <div>
+      <small>
+        You can also specify thru URL.
+        <br />
+        For example, <a href="?lat=47.6423&long=-122.139"><code>?lat=47.6423&amp;long=-122.139</code></a>.
+      </small>
+    </div>
+    <div>
       <label>
         Latitude&nbsp;
         <input
@@ -114,7 +125,9 @@ const Settings = ({
           value={ overrodeLongitude || '' }
         />
       </label>
+      <br />
       <button onClick={ overrideLatLongToRedmond }>Set to Redmond</button>
+      <br />
       <button onClick={ overrideLatLongToMSRAsia }>Set to MSR Asia</button>
     </div>
     <h2>Timezone</h2>
@@ -153,7 +166,9 @@ const Settings = ({
       <small>
         This settings requires refresh.
         <br />
-        You can also specify thru URL, for example, <code>?locale=zh-HK</code>.
+        You can also specify thru URL.
+        <br />
+        For example, <a href="?locale=zh-HK"><code>?locale=zh-HK</code></a>.
       </small>
     </div>
     {
